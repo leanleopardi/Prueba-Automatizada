@@ -1,0 +1,63 @@
+Realizar una prueba funcional automatizada (Prueba E2E) de un flujo de compra en la página https://www.demoblaze.com/ que incluya:
+Agregar dos productos al carrito
+Visualizar el carrito
+Completar el formulario de compra
+Finalizar la compra
+En este ejemplo, utilizaremos Selenium WebDriver con el lenguaje de programación Java.
+
+El flujo de la prueba sería el siguiente:
+
+Abrir el navegador e ingresar a la página https://www.demoblaze.com/.
+Agregar dos productos al carrito, haciendo clic en el botón "Add to cart" de dos productos diferentes.
+Visualizar el carrito, haciendo clic en el icono del carrito en la esquina superior derecha.
+Completar el formulario de compra, ingresando la información requerida en los campos correspondientes.
+Finalizar la compra, haciendo clic en el botón "Purchase".
+A continuación, presentamos un ejemplo de código en Java utilizando Selenium WebDriver para realizar esta prueba:
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class PruebaE2E {
+
+    public static void main(String[] args) {
+        // Configuración del driver de Selenium
+        System.setProperty("webdriver.chrome.driver", "ruta/del/driver/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        
+        // Abrir el navegador e ingresar a la página
+        driver.get("https://www.demoblaze.com/");
+        
+        // Agregar dos productos al carrito
+        WebElement product1 = driver.findElement(By.xpath("//h4/a[contains(text(),'Samsung galaxy s6')]/../following-sibling::div/button"));
+        product1.click();
+        WebElement product2 = driver.findElement(By.xpath("//h4/a[contains(text(),'HTC One M9')]/../following-sibling::div/button"));
+        product2.click();
+        
+        // Visualizar el carrito
+        WebElement cartIcon = driver.findElement(By.id("cartur"));
+        cartIcon.click();
+        
+        // Completar el formulario de compra
+        WebElement nameInput = driver.findElement(By.id("name"));
+        nameInput.sendKeys("Nombre de prueba");
+        WebElement countryInput = driver.findElement(By.id("country"));
+        countryInput.sendKeys("País de prueba");
+        WebElement cityInput = driver.findElement(By.id("city"));
+        cityInput.sendKeys("Ciudad de prueba");
+        WebElement cardInput = driver.findElement(By.id("card"));
+        cardInput.sendKeys("1234567890123456");
+        WebElement monthInput = driver.findElement(By.id("month"));
+        monthInput.sendKeys("01");
+        WebElement yearInput = driver.findElement(By.id("year"));
+        yearInput.sendKeys("2023");
+        
+        // Finalizar la compra
+        WebElement purchaseButton = driver.findElement(By.xpath("//button[contains(text(),'Purchase')]"));
+        purchaseButton.click();
+        
+        // Cerrar el navegador
+        driver.quit();
+    }
+
+}
